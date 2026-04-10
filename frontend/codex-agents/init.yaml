@@ -1,0 +1,171 @@
+project:
+  name: "Agriculture Safety Dashboard"
+  type: "hackathon"
+  domain: "agriculture vehicle perception and safety"
+  goal: >
+    Visualize video or frame-based ML outputs for an agriculture vehicle and explain
+    why the system detects danger and recommends a steering action or stop.
+
+stack:
+  backend:
+    framework: "FastAPI"
+    modeling: "Pydantic"
+    responsibility:
+      - "collect ML outputs"
+      - "store structured results in typed models"
+      - "serialize results to JSON"
+      - "serve data to the frontend"
+  frontend:
+    framework: "Vite + React + TypeScript"
+    planned_ui:
+      - "Tailwind"
+      - "shadcn/ui"
+      - "Lucide React"
+      - "Plotly"
+    current_structure:
+      - "src/pages"
+      - "src/data"
+    responsibility:
+      - "fetch dashboard data"
+      - "render video or frame visualization"
+      - "draw overlays"
+      - "show steering reasoning"
+      - "show uncertainty and danger explanations"
+      - "show metrics and charts"
+
+team:
+  philipp:
+    ownership:
+      - "frontend"
+      - "API integration"
+      - "DTOs"
+      - "Pydantic abstract classes"
+  arash:
+    ownership:
+      - "object detection"
+  kai:
+    ownership:
+      - "steering vectors"
+      - "vector reasoning"
+  nils:
+    ownership:
+      - "presentation"
+      - "storyline"
+      - "front page"
+      - "problem statement"
+      - "solution framing"
+      - "team slide"
+      - "call to action"
+
+product_requirements:
+  must_have:
+    - "explainable steering decisions"
+    - "reason for each danger signal"
+    - "uncertainty visibility"
+    - "safe-by-design behavior"
+    - "local execution"
+    - "low computational cost"
+    - "high speed"
+    - "fallback behavior if sensors fail"
+  nice_to_have:
+    - "video AI summary"
+    - "circumstances and challenge summary"
+    - "metrics summary in charts"
+
+ml_concept:
+  control_model: "Braitenberg Vehicle 7 inspired hierarchy"
+  control_goal: "danger avoidance with explainable steering"
+  sensing:
+    - "VLM-driven danger detection"
+    - "object detection, possibly YOLO"
+    - "semantic understanding, possibly SAM"
+  principle: >
+    Combine classical robotic control ideas with modern vision models while keeping
+    the system conservative and interpretable.
+
+dashboard:
+  main_layout:
+    center: "video player with synchronized overlays"
+    left: "scene summary, danger list, current frame explanation"
+    right: "controls, toggles, legend, playback settings"
+    bottom: "timeline and Plotly charts"
+  overlay_layers:
+    - "bounding boxes"
+    - "text labels"
+    - "certainty values"
+    - "steering vectors"
+    - "vector reasoning"
+  optional_controls:
+    - "description panel"
+    - "frame sampling interval"
+    - "video play speed"
+    - "checkboxes to hide or show overlay categories"
+  design_rules:
+    - "video is the main story surface"
+    - "sync overlays by frame index or timestamp"
+    - "keep overlay coordinates normalized"
+    - "every visual layer can be toggled"
+    - "do not imply certainty when the model is unsure"
+
+data_contract:
+  preferred_shape:
+    run_level:
+      - "run_id"
+      - "source_video_url or frame source"
+      - "overall summary"
+      - "aggregate metrics"
+    frame_level:
+      - "frame_index"
+      - "timestamp_ms"
+      - "detections"
+      - "steering"
+      - "danger_reasoning"
+      - "uncertainty"
+      - "summary"
+  detection_fields:
+    - "id"
+    - "label"
+    - "confidence"
+    - "bbox"
+    - "reason"
+  bbox_fields:
+    - "x"
+    - "y"
+    - "width"
+    - "height"
+    - "coordinate_space_normalized"
+  steering_fields:
+    - "direction_x"
+    - "direction_y"
+    - "magnitude"
+    - "action"
+    - "reason"
+  uncertainty_fields:
+    - "score"
+    - "label"
+    - "reason"
+
+frontend_guidance:
+  preferred_modules:
+    - "src/pages/dashboard"
+    - "src/components/video"
+    - "src/components/overlays"
+    - "src/components/charts"
+    - "src/components/panels"
+    - "src/data/api"
+    - "src/data/dto"
+  coding_rules:
+    - "keep network logic out of view components"
+    - "use DTO adapters between backend JSON and UI models"
+    - "prefer small components"
+    - "favor explicit loading and error states"
+    - "do not over-abstract early"
+
+demo_flow:
+  - "open the dashboard"
+  - "play a video or frame sequence"
+  - "show detected hazards"
+  - "show steering vector and explanation"
+  - "toggle overlays on and off"
+  - "show confidence and reasoning charts"
+  - "close with safety and local-runtime value proposition"
